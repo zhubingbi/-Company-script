@@ -94,7 +94,7 @@ class Hadoop:
         f.close()
 
     def insert_parms(self, filename):
-        # 将筛选出来的nginx数据导入数据库
+        """ 将筛选出来的nginx数据导入数据库"""
         mysql_conn = MySQLdb.connect(host='127.0.0.1', user='root', passwd='careland', port=3329, db='lzhd', charset='utf=8')
         cursor = mysql_conn.cursor()
         with open(filename, 'r') as f:
@@ -111,7 +111,7 @@ class Hadoop:
         mysql_conn.close()
 
     def insert_source(self, filename):
-        # 将hive中计算出来的pv,uv等信息插入数据库
+        """ 将hive中计算出来的pv,uv等信息插入数据库 """
         mysql_conn = MySQLdb.connect(host='127.0.0.1', user='root', passwd='careland', port=3329, db='lzhd', charset='utf=8')
         cursor = mysql_conn.cursor()
         with open(filename, 'r') as f:
@@ -119,16 +119,36 @@ class Hadoop:
                 source = line.replace('\n', '').split()
                 # 产生数据前几位格式：数据库时间(年，月，日)  aid   ghid
                 insert_info = tuple(source)
+                # 插入数据信息
                 aid = int(source[1])
                 ghid = source[2]
                 update_info = source[3:]
+                # 跟新数据信息
                 update_info.extend([aid, ghid, self.get_systime()[2]])
                 cursor.execute('select id from stat_report where aid=%d and day="%s" and ghid="%s"' % (aid, self.get_systime()[2], ghid))
                 judge = cursor.fetchone()
                 if judge is None:
                     insert_sql = "insert into stat_report (day,aid,ghid,pv,uv,cv,ip,s1,s2,s3,s4,sp1,sp2,sp3,sp4,f1,f2,f3,f4,f0,fp1,fp2,fp3,fp4,fp0) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+                    cursor.execute(insert_sql, insert_info)
                 else:
                     update_sql = 'update stat_report set pv=%s,uv=%s,cv=%s,ip=%s,s1=%s,s2=%s,s3=%s,s4=%s,sp1=%s,sp2=%s,sp3=%s,sp4=%s,f1=%s,f2=%s,f3=%s,f4=%s,f0=%s,fp1=%s,fp2=%s,fp3=%s,fp4=%s,fp0=%s where aid = %s and ghid=%s and day = %s'
+                    cursor.execute(update_sql, update_info)
+        cursor.close()
+        mysql_conn.commit()
+        mysql_conn.close()
+
+    def insert_activity(self, filename):
+        """pass"""
+        mysql_conn = MySQLdb.connect(host='127.0.0.1', user='root', passwd='careland', port=3329, db='lzhd',
+                                     charset='utf=8')
+        cursor = mysql_conn.cursor()
+        with open(filename, 'r') as f:
+            for line in f.readlins():
+                info = line.replace('\n','').split('<')
+                for item in range(0,len(info)):
+                    if info[item] == '':
+                        info[item] = 'Null'
+                    
 
 
     if __name__ == '__main__':
