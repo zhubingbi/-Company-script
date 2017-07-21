@@ -1,0 +1,38 @@
+#!/usr/bin/python
+
+"""
+class Parent:
+    def __init__(self):
+        self.name = 'Old Tom'
+        self.age = 65
+        self.gender = 'man'
+
+    def cookie(self, error):
+        print ('dapanji')
+
+
+class Child(Parent):
+    def __init__(self):
+        self.name = 'Tom'
+        self.age = 14
+
+    def cookie(self,error):
+        print ('shizitou')
+        Parent.cookie(self,error='abc')
+
+b = Parent()
+b.cookie('abc')
+c = Child()
+print c.name
+print c.cookie('error')
+print dir(Parent)
+"""
+
+class hero:
+
+    def __init__(self):
+        self.被动
+        self.q = Q
+        self.w = W
+        self.e = E
+        self.r = R
