@@ -1,0 +1,20 @@
+{% extends 'list_base.html' %}
+{% block title %}
+	userlist
+{% endblock %}
+
+{% block thead %}
+	<tr>
+		<th>用户姓名</th>
+		<th>用户电话</th>
+	</tr>
+{% endblock %}
+
+{% block tbody %}
+	{% for user in userList%}
+	<tr>
+		<th>{{ user.name }}</th>
+		<th>{{ user.phone }}</th>
+	</tr>
+	{% endfor%}
+{% endblock %}

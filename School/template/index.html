@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		index
+	</title>
+</head>
+<body>
+	<form action="" method="post">
+		{% csrf_token %}
+		<label>
+			用户名
+		</label>
+		<input type="text" name="username">
+		<label>
+			密码
+		</label>
+		<input type="password" name="password">
+		<input type="submit" name="注册">
+	</form>
+	<ul>
+		{% for user in all_user %}
+			<li>
+				{{ user.user }}
+			</li>
+		{% endfor %}
+	</ul>
+</body>
+</html>

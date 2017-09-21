@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>list展示页面</title>
+	<script type="text/javascript" src='/static/js/jquery-3.1.1.min.js'></script>
+	<script type="text/javascript" src='/static/js/vue.min.js'></script>
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/register.css">
+</head>
+<body>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>姓名</th>
+				<th>性别</th>
+				<th>年龄</th>
+				<th>专业</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for student in page_student %}
+				<tr>
+					<td> {{student.name}} </td>
+					<td> {{student.gender}} </td>
+					<td> {{student.birthday}} </td>
+					<td> {{student.subject}} </td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<a href="/list/{{ uper }}">上一页</a>
+	<a href="/list/{{ next }}">下一页</a>
+	{{uper}}  {{next}}
+</body>
+</html>

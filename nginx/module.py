@@ -11,11 +11,10 @@ conn = MySQLdb.connect(
 )
 cursor = conn.cursor()
 #for i in range(10, 100):
-i = 01
 while True:
-    table_name = 'stat_table_11'
-    drop = 'drop table if exists '+table_name
-    cursor.execute(drop)
+    table_name = 'stat_table_09'
+    #drop = 'drop table if exists '+table_name
+    #cursor.execute(drop)
     sql = """CREATE TABLE %s (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `aid` int(1) NOT NULL DEFAULT '0',
@@ -27,4 +26,5 @@ while True:
     """ % table_name
     cursor.execute(sql)
     break
+
 conn.close()

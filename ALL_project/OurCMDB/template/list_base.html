@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>
+		{% block title%}
+
+		{% endblock %}
+	</title>
+	<script type="text/javascript" src='/static/js/jquery-3.1.1.min.js'></script>
+	<script type="text/javascript" src='/static/js/vue.min.js'></script>
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/register.css">
+	{% block style%}
+	{% endblock %}
+</head>
+<body>
+	<table class="table">
+		<thead>
+			{% block thread %}
+			{% endblock %}
+		</thead>
+		<tbody>
+			{% block tbody %}
+			{% endblock %}
+		</tbody>
+	</table>
+	<span>
+		{% block page %}
+			<a href="/list/{{ uper }}">上一页</a>
+			<a href="/list/{{ next }}">下一页</a>
+		{% endblock%}
+	</span>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{% extends 'list_base.html' %}
+
+{% block title %}
+	欢迎 {{ user.username }} 登录
+{% endblock %}
+
+
+{% block thread %}
+	<tr>
+		<th>用户姓名</th>
+		<th>用户电话</th>
+	</tr>
+{% endblock %}
+
+{% block tbody %}
+	{% for user in userList%}
+	<tr>
+		<th>{{ user.username }}</th>
+		<th>{{ user.phone }}</th>
+	</tr>
+	{% endfor%}
+{% endblock %}

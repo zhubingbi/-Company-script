@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>上传信息页面展示</title>
+	<script type="text/javascript" src='/static/js/jquery-3.1.1.min.js'></script>
+	<script type="text/javascript" src='/static/js/vue.min.js'></script>
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/register.css">
+</head>
+<body>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>用户</th>
+				<th>文件名</th>
+				<th>文件大小</th>
+				<th>上传时间</th>
+				<th>超清链接</th>
+				<th>高清链接</th>
+				<th>标清链接</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for files in page_all %}
+				<tr>
+					<td> {{files.user}} </td>
+					<td> {{files.filename}} </td>
+					<td> {{files.size}} </td>
+					<td> {{files.time}} </td>
+					<td> {{files.sc}} </td>
+					<td> {{files.hi}} </td>
+					<td> {{files.sd}} </td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<a href="/list/{{ uper }}">上一页</a>
+	<a href="/list/{{ next }}">下一页</a>
+	{{uper}}  {{next}}
+</body>
+</html>

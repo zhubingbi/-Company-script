@@ -23,7 +23,7 @@ class Upload(peewee.Model):
 class Download(peewee.Model):
     down_addr = peewee.TextField()  # 哪个IP端口请求下载
     down_name = peewee.TextField()  # 下载了什么文件
-    down_size = peewee.TextField()    # 下载文件大小
+    down_size = peewee.TextField()   # 下载文件大小
 
     class Meta:
         database = db

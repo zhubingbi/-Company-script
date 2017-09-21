@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		注册
+	</title>
+</head>
+<body>
+	<form class='ul_register' method="post"> <!-- 没有指定action 默认以get请求提交到当前链接 -->
+		{% csrf_token %}
+		<ul>
+			{{ register.as_ul }}
+		</ul>
+		<input type="submit" name="submit">
+	</form>
+</body>
+</html>

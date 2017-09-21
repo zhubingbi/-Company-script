@@ -1,16 +1,15 @@
 #!/usr/bin/python
 #coding=utf-8
 import MySQLdb
-conn = MySQLdb.connect(host='118.89.157.163',user='root',passwd='careland',port=3329,db='lzhd_admin',charset='utf8')
-cur = conn.cursor()
-
-conn2 = MySQLdb.connect(host='118.89.157.163',user='root',passwd='careland',port=3329,db='kol',charset='utf8')
-cur2 = conn2.cursor()
+import thread
 
 
-for i in range(10,15):
-    table = 'stat_table_'+str(i)
-    #table = 'stat_table_14'
+def worker(table, lock):
+    conn = MySQLdb.connect(host='127.0.0.1', user='root', passwd='careland', port=3329, db='lzhd_admin',
+                           charset='utf8')
+    cur = conn.cursor()
+    conn2 = MySQLdb.connect(host='127.0.0.1', user='root', passwd='careland', port=3329, db='kol', charset='utf8')
+    cur2 = conn2.cursor()
     sql = 'SELECT DISTINCT a.aid AS aid, a.wxid AS son, a.fromWxid AS parent, b.fromWxid AS grandfather FROM ((SELECT aid, wxid, fromWxid  FROM %s WHERE fromWxid != wxid GROUP BY aid, wxid, fromWxid) AS a) INNER JOIN ((SELECT wxid, fromWxid FROM %s WHERE fromWxid != wxid GROUP BY wxid, fromWxid) AS b) ON a.fromWxid = b.wxid order by a.aid desc;' % (table,table)
     try:
         cur.execute(sql)
@@ -24,8 +23,19 @@ for i in range(10,15):
             cur2.execute(sql2, value)
     except Exception as e:
         print e
-conn2.commit()
-conn2.close()
-cur2.close()
-cur.close()
-conn.close()
+    lock.release()
+    conn2.commit()
+    cur2.close()
+    conn2.close()
+    cur.close()
+    conn.close()
+
+
+def main():
+    for i in range(10, 13):
+        lock = thread.allocate_lock()
+        lock.acquire()
+        table = 'stat_table_'+str(i)
+        thread.start_new_thread(worker, (table, lock))
+if __name__ == '__main__':
+    main()

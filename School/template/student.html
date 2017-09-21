@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Student</title>
+</head>
+<body>
+	<h1>
+		查询所有学生
+	</h1>
+	<table>
+		{% for student in all_student %}
+		<tr>
+			<td>
+				{{ student.id }}
+			</td>
+			<td>
+				{{ student.name }}
+			</td>
+			<td>
+				{{ student.age }}
+			</td>
+			<td>
+				{{ student.gender }}
+			</td>
+			<td>
+				{{ student.grade }}
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+	<h1>
+		查询部分满足的学生
+	</h1>
+	<table>
+		{% for student in age_13 %}
+		<tr>
+			<td>
+				{{ student.id }}
+			</td>
+			<td>
+				{{ student.name }}
+			</td>
+			<td>
+				{{ student.age }}
+			</td>
+			<td>
+				{{ student.gender }}
+			</td>
+			<td>
+				{{ student.grade }}
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+	<h1>
+		查询出来id=2的值
+	</h1>
+	<span>
+		{{ id_2.id }}
+		{{ id_2.name }}
+		{{ id_2.age }}
+		{{ id_2.gender }}
+		{{ id_2.grade }}
+	</span>
+	<h1>
+		按照年龄排序
+	</h1>
+	<table>
+		{% for student in order_by_age %}
+		<tr>
+			<td>
+				{{ student.id }}
+			</td>
+			<td>
+				{{ student.name }}
+			</td>
+			<td>
+				{{ student.age }}
+			</td>
+			<td>
+				{{ student.gender }}
+			</td>
+			<td>
+				{{ student.grade }}
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+	<h1>
+		按照年龄反序
+	</h1>
+	<table>
+		{% for student in and_find %}
+		<tr>
+			<td>
+				{{ student.id }}
+			</td>
+			<td>
+				{{ student.name }}
+			</td>
+			<td>
+				{{ student.age }}
+			</td>
+			<td>
+				{{ student.gender }}
+			</td>
+			<td>
+				{{ student.grade }}
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+	<h1>
+		限制返回的条数
+	</h1>
+	<table>
+		{% for student in limit %}
+		<tr>
+			<td>
+				{{ student.id }}
+			</td>
+			<td>
+				{{ student.name }}
+			</td>
+			<td>
+				{{ student.age }}
+			</td>
+			<td>
+				{{ student.gender }}
+			</td>
+			<td>
+				{{ student.grade }}
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+	<h1>
+		sql 原生查询
+	</h1>
+	<p>
+		{{ sql_data }}
+	</p>
+	<table>
+		{% for student in sql_data %}
+		<tr>
+			<td>
+				{{ student.id }}
+			</td>
+			<td>
+				{{ student.name }}
+			</td>
+			<td>
+				{{ student.age }}
+			</td>
+			<td>
+				{{ student.gender }}
+			</td>
+			<td>
+				{{ student.grade }}
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+	<a href="/addData"> 添加数据</a>
+	<a href='/upData'> 修改数据 </a>
+	<a href='/upData'> 删除数据 </a>
+</body>
+</html>
