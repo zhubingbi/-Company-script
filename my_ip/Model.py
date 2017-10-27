@@ -8,9 +8,9 @@ import MySQLdb
 
 class MysqlConn:
     def __init__(self):
-        self.host = '192.168.245.129'
+        self.host = '192.168.245.138'
         self.user = 'root'
-        self.passwd = 'careland'
+        self.passwd = ''
         self.db = 'student'
         self.port = 3329
 
