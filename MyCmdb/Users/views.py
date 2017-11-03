@@ -3,9 +3,11 @@ import hashlib
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.shortcuts import render_to_response
+from django.http import HttpResponseRedirect
 from forms import AdminUserForm
 from PIL import Image
 from models import Users
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 def loginValid(fun):
@@ -49,7 +51,7 @@ def phoneValid(phone):
 
 def register_phone(request):
     """
-    配合ajax，在前端register页面上验证手机号码是否重复
+    配合ajax，在前端register页面上验证注册手机号码是否重复
     :param request:
     :return:
     """
@@ -71,6 +73,11 @@ def register(request):
     :param request:
     :return:
     """
+    userid = request.COOKIES.get('user_id')
+    try:
+        user = Users.objects.get(id=userid)
+    except:
+        return HttpResponseRedirect('/login/')
     if request.method == 'POST' and request.POST:
         img = request.FILES
         data = request.POST
@@ -84,13 +91,64 @@ def register(request):
         u.user = data['user']
         u.password = hashstr(data['password'])
         u.email = data['email']
-        u.isadmin = int(data['isadmin'])
+        u.birthday = data['birthday']
+        u.groups = data['groups']
+        u.isadmin = data['isadmin']
         u.photo = photo_name
-        u.save()
-    userid = request.COOKIES.get('user_id')
-    try:
-        user = Users.objects.get(id=userid)
-    except:
-        return HttpResponseRedirect('/login/')
+        try:
+            u.save()
+            return render_to_response('register_success.html', locals())
+        except:
+            return render_to_response('register_error.html', locals())
+
     form = AdminUserForm()
     return render(request, 'register.html', locals())
+
+@loginValid
+def userlist(request):
+    userid = request.COOKIES.get('user_id')
+    user = Users.objects.get(id=userid)
+    if request.method == 'GET':
+        userList = Users.objects.all()
+    return render_to_response('userlist.html', locals())
+
+@loginValid
+def modifyuser(request):
+    userid = request.COOKIES.get('user_id')
+    user = Users.objects.get(id=userid)
+    if request.method == 'GET':
+        userList = Users.objects.all()
+    return render_to_response('modifyuser.html', locals())
+
+
+@csrf_exempt
+def modifyinput(request):
+    status = {'status': 'error', 'data': 'no thing need to modify'}
+    if request.method == 'POST' and request.POST:
+        userid = request.POST['id']
+        user = Users.objects.get(id=int(userid))
+        print request.POST
+        m_username = request.POST['modify_name']
+        m_passwd = request.POST['modify_passwd']
+        m_phone = request.POST['modify_phone']
+        m_email = request.POST['modify_email']
+        m_birthday = request.POST['modify_birthday']
+        m_groups = request.POST['modify_groups']
+        m_isadmin = request.POST['modify_isadmin']
+        # modifyinfo = {'user':m_username,'password:'m_passwd,'phone':m_phone,'email':m_email,'birthday':m_birthday,'groups':m_groups,'isadmin':m_isadmin}
+        if m_username:
+            Users.objects.filter(id=userid).update(user=m_username)
+        if m_passwd:
+            Users.objects.filter(id=userid).update(password=m_passwd)
+        if m_phone:
+            Users.objects.filter(id=userid).update(phone=m_phone)
+        if m_email:
+            Users.objects.filter(id=userid).update(email=m_email)
+        if m_birthday:
+            Users.objects.filter(id=userid).update(birthday=m_birthday)
+        if m_groups:
+            Users.objects.filter(id=userid).update(groups=m_groups)
+        if m_isadmin:
+            Users.objects.filter(id=userid).update(isadmin=m_isadmin)
+
+    return JsonResponse(status)
