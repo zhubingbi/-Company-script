@@ -13,3 +13,7 @@ class Servers(models.Model):
     cpu = models.CharField(max_length=32)
     memory = models.CharField(max_length=32)
     disk = models.CharField(max_length=32)
+
+
+class Uploads(models.Model):
+    ip = models.CharField(max_length=32)

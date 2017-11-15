@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^user/', include('Users.urls')),
     url(r'^server/', include('Server.urls')),
+    url(r'^ansible/', include('Ansible.urls')),
 ]

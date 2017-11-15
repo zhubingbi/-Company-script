@@ -1,3 +1,4 @@
+<!-- base html -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +15,8 @@
             联众互动管理平台
         {% endblock %}
     </title>
+
+    <link rel="icon" type="text/icon" href="../static/img/favicon.ico">
 
     <!-- Bootstrap Core CSS -->
     <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -67,7 +70,7 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 个人中心</a>
+                        <li><a href="/index/"><i class="fa fa-gear fa-fw"></i> 个人中心</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="/logout/"><i class="fa fa-sign-out fa-fw"></i> 登出</a>
@@ -86,23 +89,23 @@
                             <a href="#"><i class="glyphicon glyphicon-user"></i> 用户管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/User/list/">用户列表</a>
+                                    <a href="/user/listUser/">用户列表</a>
                                 </li>
                                 <li>
-                                    <a href="/user/addUser">添加用户</a>
+                                    <a href="/user/addUser/">添加用户</a>
                                 </li>
                                 <li>
-                                    <a href="ModifyUser.html">修改用户信息</a>
+                                    <a href="/user/modifyUser/">修改用户信息</a>
                                 </li>
 
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="	glyphicon glyphicon-wrench"></i> SaltStack<span class="fa arrow"></span></a>
+                            <a href="#"><i class="	glyphicon glyphicon-wrench"></i> Ansible <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="tml">主机信息</a>
+                                    <a href="/ansible/hostlist/">主机信息</a>
                                 </li>
                                 <li>
                                     <a href="morris.html">应用部署</a>
@@ -130,13 +133,16 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="glyphicon glyphicon-tasks"></i> 资产管理<span class="fa arrow"></span></a>
+                            <a href="#"><i class="glyphicon glyphicon-tasks"></i> 服务器管理 <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/server/serverlist">服务器列表</a>
+                                    <a href="/server/serverlist/">服务器列表</a>
                                 </li>
                                 <li>
-                                    <a href="morris.html">上传文件列表</a>
+                                    <a href="/server/upload">上传文件</a>
+                                </li>
+                                <li>
+                                    <a href="/server/gateone/"> 终端登录 </a>
                                 </li>
                                 <li>
                                     <a href="morris.html">下载文件列表</a>
